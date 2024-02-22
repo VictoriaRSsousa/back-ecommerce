@@ -1,6 +1,6 @@
 const express = require('express')
 
-const productController = require('../controllers/product')
+const productController = require('../controllers/')
 
 const router = express.Router()
 
@@ -12,6 +12,7 @@ const router = express.Router()
  //databases(conexao com o bd)
 
 router.get('/', productController.list)
+router.post('/',productController.create)
 
 
 

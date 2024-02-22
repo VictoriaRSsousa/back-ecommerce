@@ -8,27 +8,37 @@
 
 const connection = require('../databases/e-commerceConnections.js')
 
- async function  list(){
-    //  try{
-        console.log("models");
-        console.log(connection.query);
-        const result = await connection.query('SELECT * from products;')
-        // console.log(result.rows)
-        // return result.rows
-        // return {
-        //     errorMessage: null,
-        //     value: result
-        // }
-
-    // }catch{
-       // return "deu erro"
-        // return {
-        //     errorMessage: "Deu erro aqui",
-        //     value: null
-        // }
-    // }
+async function  list(){
+   const result = await connection.query('SELECT * from products;')
+   return result.rows
  }
 
+async function create(product){
+   const transaction = await connection.connect()
+   try{
+      await transaction.query('begin;')
+
+      const {model, price,image,qtd_d,product_categorie_id} = product
+      const query = `insert into products (model,price,image,qtd_d,product_categorie_id) values($1,$2,$3,$4,$5) returning product_id;`
+      const params =[model,price,image,qtd_d,product_categorie_id]
+      const result = transaction.query(query,params)
+      const idNewUser = result.rows[0].product_id
+
+
+      await transaction.query('commit;')
+      return {
+         id:idNewUser,
+         ...product
+      }
+
+   }catch(error){
+      await transaction.query('rollback;')
+      throw error
+
+   }finally {
+   transaction.release()}
+} 
+
  module.exports = {
-    list
+    list,create
  }
