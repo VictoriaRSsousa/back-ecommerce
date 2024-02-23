@@ -7,7 +7,7 @@ host: 'localhost',
 user: 'postgres',
 port: 5432,
 password:'admin',
-database: 'e_commerce'
+database: 'e_commerce_victoria'
 })
 // console.log(process.env);
 module.exports = connection
