@@ -4,16 +4,22 @@
 // models(faz as query- requisiçoes ao bd)
  //databases(conexao com o bd)
 
-const productsService = require('../services/product')
+const {productService} = require('../services')
 
 const list = async (req,res)=>{
-   const {value,errorMessage,statusCode} = await productsService.list()
+   const {value,message,statusCode} = await productService.list()
    res.json(value).status(statusCode)
  }
 
 const create = async(req,res) =>{
-   const {value,errorMessage,statusCode} = await productsService.create(req.body)
-   errorMessage?res.json(errorMessage).status(statusCode):res.json(value).status(statusCode)
+   const {value,message,statusCode} = await productService.create(req.body)
+   if(message){
+      res.status(statusCode).json(message)
+   }else{
+      res.status(statusCode).json(value)
+
+   }
+
  }
 
  module.exports={

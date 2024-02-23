@@ -21,19 +21,18 @@ async function create(product){
       const {model, price,image,qtd_d,product_categorie_id} = product
       const query = `insert into products (model,price,image,qtd_d,product_categorie_id) values($1,$2,$3,$4,$5) returning product_id;`
       const params =[model,price,image,qtd_d,product_categorie_id]
-      const result = transaction.query(query,params)
-      const idNewUser = result.rows[0].product_id
-
+      const result = await transaction.query(query,params)
+      const idNewProduct = result.rows[0].product_id
 
       await transaction.query('commit;')
       return {
-         id:idNewUser,
+         id:idNewProduct,
          ...product
       }
 
-   }catch(error){
+   }catch{
       await transaction.query('rollback;')
-      throw error
+      
 
    }finally {
    transaction.release()}

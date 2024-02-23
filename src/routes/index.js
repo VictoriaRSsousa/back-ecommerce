@@ -1,6 +1,9 @@
-const productController = require('../controllers/product')
+const productRoute = require('./product')
+const userRoute = require('./user')
 
 
 module.exports={
-    productController
+    productRoute,
+    userRoute
+
 }

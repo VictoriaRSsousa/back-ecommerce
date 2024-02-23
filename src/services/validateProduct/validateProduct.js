@@ -1,8 +1,5 @@
-const {categorieModel} = require('../../models')
-
-const validateProduct=(product)=>{
-    const {model, price,image,qtd_d,product_categoria_id} = product 
-    const idVerif = categorieModel.findById(product_categoria_id)
+const  validateProduct=(product)=>{
+    const {model, price,image,qtd_d,product_categorie_id} = product 
 
     if(typeof(model) !=='string' || !model){
         return "Modelo inválido!"
@@ -20,7 +17,7 @@ const validateProduct=(product)=>{
         return "Quantidade de produtos inválidas!"
     }
 
-    if(typeof(product_categoria_id)!=='number' || !product_categoria_id || !idVerif ){
+    if(typeof(product_categorie_id)!=='number' || !product_categorie_id){
         return "Categoria inválida!"
     }
 

@@ -1,4 +1,4 @@
-const {productModel}= require('../models/index')
+const {productModel,categorieModel}= require('../models/')
 
 const validateProduct = require('./validateProduct/validateProduct')
 
@@ -7,15 +7,13 @@ const list = async () =>{
     const products = await productModel.list()
     return {
         value:products,
-        errorMessage:false,
+        message:false,
         statusCode:200
     }
 }
 
 async function create(product){
-    const {model, price,image,qtd_d,product_categoria_id} = product
     const message = validateProduct(product)
-
     if(message){
         return {
             value:null,
@@ -23,8 +21,16 @@ async function create(product){
             statusCode:400,
         }
     }
+    const  idVerif =  await categorieModel.findById(product.product_categorie_id)
+    if(idVerif){
+        return{
+            value:null,
+            message:`Categoria Inválida!`,
+            statusCode:400
+        }
+    }
 
-    const newProduct = productModel.create(product)
+    const newProduct = await productModel.create(product)
     return {
         value:newProduct,
         message:null,

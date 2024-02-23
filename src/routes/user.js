@@ -1,6 +1,6 @@
 const express = require('express')
 
-const {productController} = require('../controllers/')
+const {userController} = require('../controllers/')
 
 const router = express.Router()
 
@@ -11,8 +11,8 @@ const router = express.Router()
 // models(faz as query- requisiçoes ao bd)
  //databases(conexao com o bd)
 
-router.get('/', productController.list)
-router.post('/',productController.create)
+router.get('/', userController.list)
+router.post('/',userController.create)
 
 
 
