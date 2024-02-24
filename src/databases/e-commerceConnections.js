@@ -1,13 +1,14 @@
 const { Pool } = require('pg')
 
+require('dotenv').config()
 
 //PORTA DO BANCO DE DADOS
 const connection = new Pool({
-host: 'localhost',
-user: 'postgres',
-port: 5432,
-password:'admin',
-database: 'e_commerce'
+    host:process.env.HOST_DB,
+    user:process.env.USER_DB,
+    port:process.env.PORT_DB,
+    password:process.env.PASSWORD_DB,
+    database:process.env.DATABASE_DB
 })
 // console.log(process.env);
 module.exports = connection

@@ -14,8 +14,6 @@ const router = express.Router()
 router.get('/', productController.list)
 router.post('/',productController.create)
 
-
-
 // productController.list()
 
 module.exports = router
