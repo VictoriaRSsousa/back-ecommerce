@@ -30,5 +30,10 @@ async function create(user){
     }finally {
     transaction.release()}
 }
+async function findByEmail(email){
+   const query = `SELECT email,password from pessoas where email = $1`
+   const result = await connection.query(query,[email])
+   return result.rows
+}
 
 module.exports = {list,create}
