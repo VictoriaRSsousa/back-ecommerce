@@ -13,6 +13,7 @@ const router = express.Router()
 
 router.get('/', productController.list)
 router.post('/',productController.create)
+// router.put('/:id',productController.update)
 
 // productController.list()
 

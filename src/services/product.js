@@ -38,6 +38,21 @@ async function create(product){
     }
 }
 
+// async function update(product){
+//     const message = validateupdate(product)
+
+//     const updateProduct =  await productModel.update(product)
+//     if(message){
+//         return {
+//             value:null,
+//             message,
+//             statusCode:400,
+//         }
+//     }
+        
+    
+// }
+
 module.exports ={
     list,create
 }

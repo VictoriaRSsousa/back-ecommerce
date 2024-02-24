@@ -8,6 +8,7 @@ const list = async (req,res)=>{
 
 const create = async(req,res) =>{
    const {value,message,statusCode} = await userService.create(req.body)
+   // console.log(req.body);
    if(message){
       res.status(statusCode).json(message)
    }else{

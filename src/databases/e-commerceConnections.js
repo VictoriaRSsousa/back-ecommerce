@@ -9,6 +9,7 @@ const connection = new Pool({
     port:process.env.PORT_DB,
     password:process.env.PASSWORD_DB,
     database:process.env.DATABASE_DB
+
 })
 // console.log(process.env);
 module.exports = connection

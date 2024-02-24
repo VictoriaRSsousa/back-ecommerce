@@ -11,9 +11,9 @@ async function create(user){
     try{
        await transaction.query('begin;')
  
-       const {name,email,password,telefone} = user
-       const query = `insert into products (name,email,password,telefone) values($1,$2,$3,$4) returning product_id;`
-       const params =[name,email,password,telefone]
+       const {name,email,password} = user
+       const query = `insert into users (name,email,password) values($1,$2,$3) returning user_id;`
+       const params =[name,email,password]
        const result = await transaction.query(query,params)
        const idNewUser = result.rows[0].user_id
  
