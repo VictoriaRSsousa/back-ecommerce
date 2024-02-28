@@ -4,12 +4,17 @@
 // models(faz as query- requisiçoes ao bd)
  //databases(conexao com o bd)
 
-const {productService} = require('../services')
+const {productService,categorieService} = require('../services')
 
 const list = async (req,res)=>{
+   if(req.query.categorie){
+      const filterByName = await productService.filterByCategorie(req.query.categorie)
+   }
    const {value,message,statusCode} = await productService.list()
    res.json(value).status(statusCode)
  }
+
+
 
 const create = async(req,res) =>{
    const {value,message,statusCode} = await productService.create(req.body)
@@ -21,6 +26,18 @@ const create = async(req,res) =>{
    }
 
  }
+
+const findById = async(req,res)=>{
+   const {value,message,statusCode} = await productService.findById(req.params.id)
+   if(message){
+      res.status(statusCode).json(message)
+   }else{
+      res.status(statusCode).json(value)
+
+   }
+ }
+
+
 // async function update(req, res){
 //    const {value,message,statusCode} = await productService.update(req.body)
 //    if(message){
@@ -36,5 +53,6 @@ const create = async(req,res) =>{
 
  module.exports={
     list,
-    create
+    create,
+    findById
  }

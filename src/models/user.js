@@ -31,9 +31,17 @@ async function create(user){
     transaction.release()}
 }
 async function findByEmail(email){
-   const query = `SELECT email,password from pessoas where email = $1`
-   const result = await connection.query(query,[email])
-   return result.rows
+   // const query = `SELECT password from pessoas where email = $1`
+   // const result = await connection.query(query,[email])
+   // if(result.rowCount>0){
+   //    return {
+   //       email,
+   //       senha : result.rows[0].password
+   //    }
+
+   // }else{
+   //    return ""
+   // }
 }
 
-module.exports = {list,create}
+module.exports = {list,create,findByEmail}

@@ -12,6 +12,7 @@ const router = express.Router()
  //databases(conexao com o bd)
 
 router.get('/', productController.list)
+router.get('/:id', productController.findById)
 router.post('/',productController.create)
 // router.put('/:id',productController.update)
 

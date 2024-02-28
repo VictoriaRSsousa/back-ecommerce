@@ -12,6 +12,20 @@ const list = async () =>{
     }
 }
 
+async function filterByCategorie(categorie){
+    const categorieName = await categorieModel.filterByName(categorie)
+    if(categorieName){
+        const filter = await productModel.filterByCategorie(categorieName)
+        return {
+            value:filter,
+            message:false,
+            statusCode:200,
+        }
+    }
+
+    // }
+}
+
 async function create(product){
     const message = validateProduct(product)
     if(message){
@@ -38,6 +52,23 @@ async function create(product){
     }
 }
 
+async function findById(id){
+    const product = await productModel.findById(id)
+    if(product){
+        return{
+            value:product,
+            message:false,
+            statusCode:200
+        }
+    }else{
+        return{
+            value:false,
+            message:"Produto não encontrado!",
+            statusCode:400
+        }
+    }
+}
+
 // async function update(product){
 //     const message = validateupdate(product)
 
@@ -54,5 +85,5 @@ async function create(product){
 // }
 
 module.exports ={
-    list,create
+    list,create,findById,filterByCategorie
 }

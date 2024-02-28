@@ -18,7 +18,22 @@ const create = async(req,res) =>{
 
  }
 
+ const findByEmail = async(req,res) =>{
+   // const {value,message,statusCode} = await userService.findByEmail(req.query)
+   // // console.log(req.body);
+   // if(message){
+   //    res.status(statusCode).json(message)
+   // }else{
+   //    res.status(statusCode).json(value)
+
+   // }
+
+ }
+
+
+
  module.exports={
     list,
-    create
+    create,
+    findByEmail
  }
