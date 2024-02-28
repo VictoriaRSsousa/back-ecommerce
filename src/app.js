@@ -1,4 +1,4 @@
-const {productRoute,userRoute} =  require('./routes')
+const {productRoute,userRoute, saleRoute,saleDateRoute} =  require('./routes')
 const express = require('express')
 require('dotenv').config()
 
@@ -11,5 +11,7 @@ app.use(express.json())
 
 app.use('/products',productRoute)
 app.use('/users',userRoute)
+app.use('/sales',saleRoute)
+app.use('/saleDates',saleDateRoute)
 
 app.listen(port,()=>console.log("subiu"))

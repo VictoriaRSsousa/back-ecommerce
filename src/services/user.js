@@ -29,6 +29,33 @@ async function create(user){
     }
 }
 
+async function findByEmail(queryParam){
+    // if(queryParam==='email'){
+    //     const find = userModel.findByEmail(queryParam)
+    //     if(!find){
+    //         return{
+    //             value:false,
+    //             message:"Email não encontrado",
+    //             statusCode:400}
+    //     }else{
+    //         return{
+    //             value:find,
+    //             message:false,
+    //             statusCode:200  }
+    //     }
+    // }else{
+    //     return{
+    //         value:false,
+    //         message:"Erro de requisição",
+    //         statusCode:400 
+    //     }
+    // }
+}
+
+async function remove(id){
+    userModel.remove(id)
+}
+
 module.exports = {
-    list,create
+    list,create,findByEmail,remove
 }

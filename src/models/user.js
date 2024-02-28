@@ -27,10 +27,14 @@ async function create(user) {
     transaction.release();
   }
 }
-async function findByEmail(email) {
-  const query = `SELECT email,password from pessoas where email = $1`;
-  const result = await connection.query(query, [email]);
-  return result.rows;
+async function findByEmail(email){
+   const query = `SELECT email,password from users where email = $1`
+   const result = await connection.query(query,[email])
+   return result.rows
 }
 
-module.exports = { list, create };
+async function remove(id){
+  const result = await connection.query(`delete from users where user_id = $1`,[id])
+  console.log(result);
+}
+module.exports = {list,create,remove}

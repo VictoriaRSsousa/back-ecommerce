@@ -38,6 +38,18 @@ async function create(product){
    transaction.release()}
 } 
 
+async function findById(id){
+   const result = await connection.query('SELECT * FROM products WHERE product_id = $1;',[id])
+   return result.rows
+
+}
+async function filterByCategorie(categorie){
+   //console.log(categorie);
+   const result = await connection.query('SELECT * FROM products WHERE product_categorie_id = $1',[parseInt(categorie)])
+   return result.rows
+   //console.log(result.rows);
+}
+
  module.exports = {
-    list,create
+    list,create,findById, filterByCategorie
  }
