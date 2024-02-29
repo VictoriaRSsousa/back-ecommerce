@@ -2,6 +2,7 @@ const connection = require("../databases/e-commerceConnections");
 
 async function list() {
   const result = await connection.query(`select * from users;`);
+  
   return result.rows;
 }
 
@@ -33,8 +34,12 @@ async function findByEmail(email){
    return result.rows
 }
 
-async function remove(id){
-  const result = await connection.query(`delete from users where user_id = $1`,[id])
+async function remove(email){
+  const result = await connection.query(`delete from users where email = $1`,[email])
   console.log(result);
 }
-module.exports = {list,create,remove}
+
+
+
+
+module.exports = {list,create,remove,findByEmail}

@@ -12,6 +12,14 @@ async function list(){
 
 async function create(user){
     const validate = validateUser(user)
+    const findByEmail = userModel.findByEmail(user.email)
+    if(findByEmail){
+        return{
+            value:false,
+            message:"Email já cadastrado!",
+            statusCode:400
+        }
+    }
     //console.log(validate);
     if(validate){
         return{
@@ -52,8 +60,22 @@ async function findByEmail(queryParam){
     // }
 }
 
-async function remove(id){
-    userModel.remove(id)
+async function remove(email){
+    const find = findByEmail(email)
+    if(!find){
+        return{
+            value:false,
+            message:"Email não cadastrado!",
+            statusCode:400
+        }
+    }else{
+        const remove = userModel.remove(email)
+        return{
+            value:"Usuário removido!",
+            message:false,
+            statusCode:200
+        }
+    }
 }
 
 module.exports = {

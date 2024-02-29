@@ -2,6 +2,7 @@
 const {userService} = require('../services')
 
 const list = async (req,res)=>{
+
    const {value,message,statusCode} = await userService.list()
    res.json(value).status(statusCode)
  }
@@ -39,9 +40,16 @@ const create = async(req,res) =>{
    //    res.status(statusCode).json(value)
 
    // }
-   userService.remove(req.params.id)
+   const {value,message,statusCode} = userService.remove(req.params.id)
+   if(message){
+      res.status(statusCode).json(message)
+   }else{
+      res.status(statusCode).json(value)
+   }
 
  }
+
+ 
 
 
 

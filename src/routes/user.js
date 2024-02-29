@@ -13,9 +13,10 @@ const router = express.Router()
  //databases(conexao com o bd)
 
 router.get('/', userController.list)
-// router.get('/', userController.findByEmail)
+//  router.get('/', userController.findByEmail)
 router.post('/',userController.create)
-router.delete('/:id',userController.remove)
+// router.post('/', userController.login)
+router.delete('/:email',userController.remove)
 
 
 
