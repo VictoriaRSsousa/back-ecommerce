@@ -29,8 +29,9 @@ async function create(user) {
   }
 }
 async function findByEmail(email){
-   const query = `SELECT email,password from users where email = $1`
+   const query = `SELECT * from users where email = $1`
    const result = await connection.query(query,[email])
+   console.log(result.rows);
    return result.rows
 }
 

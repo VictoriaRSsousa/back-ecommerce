@@ -11,9 +11,11 @@ async function list(){
 }
 
 async function create(user){
+    console.log(user);
     const validate = validateUser(user)
-    const findByEmail = userModel.findByEmail(user.email)
-    if(findByEmail){
+    const findByEmail = await userModel.findByEmail(user.email)
+    console.log(findByEmail.length);
+    if(findByEmail.length>0){
         return{
             value:false,
             message:"Email já cadastrado!",
