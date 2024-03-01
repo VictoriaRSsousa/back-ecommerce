@@ -2,7 +2,12 @@ const {saleModel} = require('../models')
 
 async function list(){
     console.log("services");
-    saleModel.list()
+    const list = saleModel.list()
+    return{
+        value:list,
+        message:false,
+        statusCode:200
+    }
 
 }
 

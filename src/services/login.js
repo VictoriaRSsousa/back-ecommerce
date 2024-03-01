@@ -6,7 +6,7 @@ async function login(user){
     const valideEmail = validateEmail(email)
     console.log(valideEmail,"validate email service");
     if(!valideEmail){
-        console.log();
+        console.log("if valide email");
         return {
             value:null,
             message:"Email Inválido!",
@@ -15,7 +15,7 @@ async function login(user){
     }
     const login = await loginModel.login(email,password)
     console.log(login);
-    if(login){
+    if(login.length>0){
         return{
             value:login,
             message:false,
