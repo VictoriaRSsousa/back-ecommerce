@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/products',productRoute)
-app.use('/users',userRoute)
+app.use('/users',userRoute)  // mudar nome para cadastro
 app.use('/sales',saleRoute)
 app.use('/saleDates',saleDateRoute)
 app.use('/login',loginRoute)

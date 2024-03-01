@@ -6,13 +6,18 @@ async function list() {
   return result.rows;
 }
 
-async function create(user) {
+async function findById(id){
+  const result = await connection.query(`select * from users where user_id = $1`,[id])
+  return result.rows
+}
+
+async function create(sale) {
   const transaction = await connection.connect();
   try {
     await transaction.query("begin;");
 
-    const { name, email, password } = user;
-    const query = `insert into users (name,email,password) values($1,$2,$3) returning user_id;`;
+    const { sale_product_id, sale_user_id,qtd_sale,price,sale_sale_date } = sale;
+    const query = `insert into users (sale_product_id, sale_user_id,qtd_sale,price,sale_sale_date) values($1,$2,$3) returning user_id;`;
     const params = [name, email, password];
     const result = await transaction.query(query, params);
     const idNewUser = result.rows[0].user_id;
@@ -43,4 +48,4 @@ async function remove(email){
 
 
 
-module.exports = {list,create,remove,findByEmail}
+module.exports = {list,create,remove,findByEmail,findById}

@@ -17,6 +17,7 @@ router.get('/', userController.list)
 router.post('/',userController.create)
 // router.post('/', userController.login)
 router.delete('/:email',userController.remove)
+router.get('/:id',userController.findById)
 
 
 

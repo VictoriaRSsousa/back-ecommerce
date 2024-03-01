@@ -6,6 +6,14 @@ async function list(req,res){
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 
+async function create(req,res){
+    const {value,message,statusCode} = await saleService.create(req.body)
+    //console.log("controller");
+    //console.log(value,message,statusCode);
+    message?res.status(statusCode).json(message):res.status(statusCode).json(value)
+}
+
 module.exports ={
-    list 
+    list ,
+    create
 }

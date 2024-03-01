@@ -2,11 +2,8 @@ const validateEmail = require('./validateEmail')
 const {loginModel} = require('../models')
 async function login(user){
     const {email, password } = user
-    console.log("service");
     const valideEmail = validateEmail(email)
-    console.log(valideEmail,"validate email service");
     if(!valideEmail){
-        console.log("if valide email");
         return {
             value:null,
             message:"Email Inválido!",

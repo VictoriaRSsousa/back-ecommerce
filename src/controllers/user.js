@@ -19,6 +19,15 @@ const create = async(req,res) =>{
 
  }
 
+ const findById = async(req,res)=>{
+   const {value,message,statusCode} = await userService.findById(req.params.id)
+   if(message){
+      res.status(statusCode).json(message)
+   }else{
+      res.status(statusCode).json(value)
+   }
+ }
+
  const findByEmail = async(req,res) =>{
    // const {value,message,statusCode} = await userService.findByEmail(req.query.email)
    // // console.log(req.body);
@@ -49,6 +58,7 @@ const create = async(req,res) =>{
 
  }
 
+
  
 
 
@@ -57,5 +67,6 @@ const create = async(req,res) =>{
     list,
     create,
     findByEmail,
-    remove
+    remove,
+    findById
  }

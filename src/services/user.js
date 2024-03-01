@@ -10,6 +10,23 @@ async function list(){
     }
 }
 
+async function findById(id){
+    const user = await userModel.findById(id)
+    if(user.length>0){
+        return{
+            value:user,
+            message:false,
+            statusCode:200
+        }
+    }else{
+        return{
+            value:false,
+            message:"Usuário não Cadastrado!",
+            statusCode:400
+        }
+    }
+}
+
 async function create(user){
     console.log(user);
     const validate = validateUser(user)
@@ -81,5 +98,5 @@ async function remove(email){
 }
 
 module.exports = {
-    list,create,findByEmail,remove
+    list,create,findByEmail,remove,findById
 }

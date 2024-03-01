@@ -13,6 +13,12 @@ async function  list(){
    return result.rows
  }
 
+async function verifyQtd(id){
+   const result = await connection.query(`select qtd_d from products where product_id = $1`,[id])
+   //console.log(result.rows[0].qtd_d);
+   return result.rows[0].qtd_d
+}
+
 async function create(product){
    const transaction = await connection.connect()
    try{
@@ -51,5 +57,5 @@ async function filterByCategorie(categorie){
 }
 
  module.exports = {
-    list,create,findById, filterByCategorie
+    list,create,findById, filterByCategorie,verifyQtd
  }
