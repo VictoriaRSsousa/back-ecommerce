@@ -9,7 +9,6 @@ const list = async (req,res)=>{
 
 const create = async(req,res) =>{
    const {value,message,statusCode} = await userService.create(req.body)
-   // console.log(req.body);
    if(message){
       res.status(statusCode).json(message)
    }else{
@@ -41,14 +40,6 @@ const create = async(req,res) =>{
  }
 
  const remove = async(req,res) =>{
-   // const {value,message,statusCode} = await userService.findByEmail(req.query.email)
-   // // console.log(req.body);
-   // if(message){
-   //    res.status(statusCode).json(message)
-   // }else{
-   //    res.status(statusCode).json(value)
-
-   // }
    const {value,message,statusCode} = userService.remove(req.params.id)
    if(message){
       res.status(statusCode).json(message)

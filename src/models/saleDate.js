@@ -8,11 +8,7 @@ async function list(){
     return result.rows
 }
 
-async function create(){
-    
-}
-
 
 module.exports = {
-    list,create
+    list
 }

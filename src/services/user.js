@@ -1,5 +1,6 @@
 const {userModel} = require('../models')
 const validateUser = require('./validateUser')
+const hash = require('./hashPassword')
 
 async function list(){
     const users = await userModel.list()
@@ -28,10 +29,8 @@ async function findById(id){
 }
 
 async function create(user){
-    console.log(user);
     const validate = validateUser(user)
     const findByEmail = await userModel.findByEmail(user.email)
-    console.log(findByEmail.length);
     if(findByEmail.length>0){
         return{
             value:false,
@@ -39,7 +38,6 @@ async function create(user){
             statusCode:400
         }
     }
-    //console.log(validate);
     if(validate){
         return{
             value:false,
@@ -47,8 +45,8 @@ async function create(user){
             statusCode:400 
         }
     }
-    const newUser = await userModel.create(user)
-    //console.log(newUser);
+    const passwordHash = await hash.hashPassword(user.password)
+    const newUser = await userModel.create(user.email,passwordHash)
     return{
         value:newUser,
         message:false,

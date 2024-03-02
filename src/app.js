@@ -1,4 +1,4 @@
-const {productRoute,userRoute, saleRoute,saleDateRoute,loginRoute} =  require('./routes')
+const {productRoute,userRoute, saleRoute,saleDateRoute,loginRoute,cadastroRoute} =  require('./routes')
 const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken');
@@ -18,5 +18,6 @@ app.use('/users',userRoute)  // mudar nome para cadastro
 app.use('/sales',saleRoute)
 app.use('/saleDates',saleDateRoute)
 app.use('/login',loginRoute)
+app.use('/cadastro',cadastroRoute)
 
 app.listen(port,()=>console.log("subiu"))

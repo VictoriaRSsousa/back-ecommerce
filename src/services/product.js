@@ -31,7 +31,6 @@ async function filterByCategorie(categorie){
         }
     }
 
-    // }
 }
 
 async function create(product){
@@ -61,7 +60,10 @@ async function create(product){
 }
 
 async function findById(id){
+
+
     const product = await productModel.findById(id)
+    
     if(product){
         return{
             value:product,
@@ -75,22 +77,8 @@ async function findById(id){
             statusCode:400
         }
     }
-}
+ }
 
-// async function update(product){
-//     const message = validateupdate(product)
-
-//     const updateProduct =  await productModel.update(product)
-//     if(message){
-//         return {
-//             value:null,
-//             message,
-//             statusCode:400,
-//         }
-//     }
-        
-    
-// }
 
 module.exports ={
     list,create,findById,filterByCategorie

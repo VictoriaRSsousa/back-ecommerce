@@ -41,21 +41,6 @@ const findById = async(req,res)=>{
 
    }
  }
-
-
-// async function update(req, res){
-//    const {value,message,statusCode} = await productService.update(req.body)
-//    if(message){
-//       res.status(statusCode).json(message)
-//    }else{
-//       res.status(statusCode).json(value)
-
-//    }
-
-
-//}
-
-
  module.exports={
     list,
     create,

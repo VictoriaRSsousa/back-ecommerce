@@ -1,8 +1,10 @@
 const validateEmail = require('./validateEmail')
 const {loginModel} = require('../models')
+const hash = require('./hashPassword')
 async function login(user){
     const {email, password } = user
     const valideEmail = validateEmail(email)
+    const hashPassword = hash.hashPassword(password)
     if(!valideEmail){
         return {
             value:null,
@@ -10,7 +12,7 @@ async function login(user){
             statusCode:400,
         }
     }
-    const login = await loginModel.login(email,password)
+    const login = await loginModel.login(email,hashPassword)
     console.log(login);
     if(login.length>0){
         return{

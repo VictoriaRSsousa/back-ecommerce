@@ -11,13 +11,13 @@ async function findById(id){
   return result.rows
 }
 
-async function create(sale) {
+async function create(user) {
   const transaction = await connection.connect();
   try {
     await transaction.query("begin;");
 
-    const { sale_product_id, sale_user_id,qtd_sale,price,sale_sale_date } = sale;
-    const query = `insert into users (sale_product_id, sale_user_id,qtd_sale,price,sale_sale_date) values($1,$2,$3) returning user_id;`;
+    const { name,email,password } = user;
+    const query = `insert into users (name,email,password) values($1,$2,$3) returning user_id;`;
     const params = [name, email, password];
     const result = await transaction.query(query, params);
     const idNewUser = result.rows[0].user_id;
@@ -25,7 +25,7 @@ async function create(sale) {
     await transaction.query("commit;");
     return {
       id: idNewUser,
-      ...user,
+      message:"Cadastrado com Sucesso!",
     };
   } catch {
     await transaction.query("rollback;");

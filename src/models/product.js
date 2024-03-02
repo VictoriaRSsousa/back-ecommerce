@@ -1,12 +1,7 @@
 
-// rotas(especificas as rotas) 
-// controlers(manda o o res com o status) 
-// services(faz a validação para mandar pro controller) 
-// models(faz as query- requisiçoes ao bd)
- //databases(conexao com o bd)
-
 
 const connection = require('../databases/e-commerceConnections.js')
+const format = require('pg-format')
 
 async function  list(){
    const result = await connection.query('SELECT * from products;')
@@ -15,7 +10,6 @@ async function  list(){
 
 async function verifyQtd(id){
    const result = await connection.query(`select qtd_d from products where product_id = $1`,[id])
-   //console.log(result.rows[0].qtd_d);
    return result.rows[0].qtd_d
 }
 
@@ -44,16 +38,17 @@ async function create(product){
    transaction.release()}
 } 
 
-async function findById(id){
-   const result = await connection.query('SELECT * FROM products WHERE product_id = $1;',[id])
-   return result.rows
+async function findById(products){
 
+   const query = format('SELECT * FROM products WHERE product_id = $1;',[products])
+   const result = await connection.query(query)
+   return result.rows
 }
+
+
 async function filterByCategorie(categorie){
-   //console.log(categorie);
    const result = await connection.query('SELECT * FROM products WHERE product_categorie_id = $1',[parseInt(categorie)])
    return result.rows
-   //console.log(result.rows);
 }
 
  module.exports = {
