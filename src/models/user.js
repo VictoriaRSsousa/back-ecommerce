@@ -11,12 +11,12 @@ async function findById(id){
   return result.rows
 }
 
-async function create(user) {
+async function create(name,email,password) {
+  console.log(password, "model pass");
   const transaction = await connection.connect();
   try {
     await transaction.query("begin;");
 
-    const { name,email,password } = user;
     const query = `insert into users (name,email,password) values($1,$2,$3) returning user_id;`;
     const params = [name, email, password];
     const result = await transaction.query(query, params);

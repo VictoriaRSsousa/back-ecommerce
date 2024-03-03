@@ -45,8 +45,8 @@ async function create(user){
             statusCode:400 
         }
     }
-    const passwordHash = await hash.hashPassword(user.password)
-    const newUser = await userModel.create(user.email,passwordHash)
+    //const passwordHash = await hash.hashPassword(user.password)
+    const newUser = await userModel.create(user.name,user.email,user.password)
     return{
         value:newUser,
         message:false,

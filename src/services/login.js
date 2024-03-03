@@ -4,7 +4,9 @@ const hash = require('./hashPassword')
 async function login(user){
     const {email, password } = user
     const valideEmail = validateEmail(email)
-    const hashPassword = hash.hashPassword(password)
+    //const hashPassword = await hash.hashPassword(password)
+    //console.log(hashPassword);
+    
     if(!valideEmail){
         return {
             value:null,
@@ -12,8 +14,15 @@ async function login(user){
             statusCode:400,
         }
     }
-    const login = await loginModel.login(email,hashPassword)
-    console.log(login);
+    if(typeof(password)!=='string'){
+        return {
+            value:null,
+            message:"Entrada Inválida!",
+            statusCode:400,
+        }
+    }
+    const login = await loginModel.login(email,password)
+    //console.log(login);
     if(login.length>0){
         return{   
             value:login,

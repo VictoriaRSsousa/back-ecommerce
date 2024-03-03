@@ -4,7 +4,7 @@ const connection = require('../databases/e-commerceConnections.js')
 const format = require('pg-format')
 
 async function  list(){
-   const result = await connection.query('SELECT * from products;')
+   const result = await connection.query('SELECT c.categorie,p.* from products as p join categories as c on product_categorie_id = categorie_id;')
    return result.rows
  }
 
