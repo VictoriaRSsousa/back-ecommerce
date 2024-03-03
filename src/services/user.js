@@ -36,7 +36,7 @@ async function create(user){
             value:false,
             message:"Email já cadastrado!",
             statusCode:400
-        }
+        } 
     }
     if(validate){
         return{
@@ -45,8 +45,8 @@ async function create(user){
             statusCode:400 
         }
     }
-    //const passwordHash = await hash.hashPassword(user.password)
-    const newUser = await userModel.create(user.name,user.email,user.password)
+    const passwordHash = await hash.criptPassword(user.password)
+    const newUser = await userModel.create(user.name,user.email,passwordHash)
     return{
         value:newUser,
         message:false,

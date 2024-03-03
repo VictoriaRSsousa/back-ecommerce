@@ -1,3 +1,4 @@
+const { decode } = require('jsonwebtoken');
 const {saleService} = require('../services')
 
 //AUTORIZAÇÃO
@@ -7,14 +8,27 @@ async function list(req,res){
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 
+async function listByUser(req,res){
+    console.log(req.params.id);
+    const {value,message,statusCode} = await saleService.listByUser(req.params.id)
+    message?res.status(statusCode).json(message):res.status(statusCode).json(value)
+}
+
 
 
 async function create(req,res){
+    //console.log(req.body);
+    
+    //console.log(req.user);
+    //console.log(decode);
+    //console.log(req.headers);
+    //console.log(req.headers.authorization);
     const {value,message,statusCode} = await saleService.create(req.body)
-     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
+    message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 
 module.exports ={
     list ,
-    create
+    create,
+    listByUser
 }

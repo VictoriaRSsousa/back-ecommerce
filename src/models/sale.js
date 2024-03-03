@@ -20,6 +20,25 @@ GROUP BY d.sale_at, s.sale_sale_date`)
   return result.rows;
 }
 
+async function listByUser(id){
+  const result = await connection.query(`SELECT
+  TO_CHAR(d.sale_at, 'YYYY-MM-DD HH24:MI:SS') as data_da_venda,
+  ARRAY_AGG(
+    JSONB_BUILD_OBJECT(
+      'id_sale', s.id_sale,
+      'sale_product_id', s.sale_product_id,
+      'sale_user_id', s.sale_user_id,
+      'qtd_sale', s.qtd_sale,
+      'price', s.price
+    )
+  ) AS sales
+FROM sales as s join sale_dates as d on d.sale_date_id = s.sale_sale_date
+where sale_user_id = $1
+GROUP BY d.sale_at, s.sale_sale_date`,[id])
+
+  return result.rows;
+}
+
 async function create(sale){ 
     const {sale_user_id,products} = sale
  
@@ -75,5 +94,6 @@ async function create(sale){
 
 module.exports = {
     list,
-    create
+    create,
+    listByUser
 }

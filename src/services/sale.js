@@ -4,7 +4,15 @@ const userService = require('./user')
 const validateSale = require('./validateSale')
 async function list(){
     const list = await saleModel.list()
-    //console.log(list);
+    return{
+        value:list,
+        message:false,
+        statusCode:200
+    }
+
+}
+async function listByUser(id){
+    const list = await saleModel.listByUser(id)
     return{
         value:list,
         message:false,
@@ -70,5 +78,6 @@ async function create(sale){
 
 module.exports = {
     list,
-    create
+    create,
+    listByUser
 }
