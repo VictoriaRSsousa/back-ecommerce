@@ -1,8 +1,20 @@
-const {productRoute,userRoute, saleRoute,saleDateRoute,loginRoute,cadastroRoute} =  require('./routes')
+const {
+    productRoute,
+    userRoute,
+    saleRoute,
+    saleDateRoute,
+    loginRoute,
+    cadastroRoute,
+    categorieRoute
+} =  require('./routes')
 const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
+
+//FALTA BOTA A CATEGORIA NOME
+
+
 
 //PORTA QUE A APLICAÇÃO VAI RODAR
 
@@ -19,5 +31,6 @@ app.use('/sales',saleRoute)
 app.use('/saleDates',saleDateRoute)
 app.use('/login',loginRoute)
 app.use('/cadastro',cadastroRoute)
+app.use('/categories',categorieRoute)
 
 app.listen(port,()=>console.log("subiu"))

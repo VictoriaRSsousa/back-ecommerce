@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get('/', userController.list)
 router.post('/',userController.create)
-router.delete('/:email',userController.remove)
+router.delete('/:id',userController.remove)
 router.get('/:id',userController.findById)
 
 

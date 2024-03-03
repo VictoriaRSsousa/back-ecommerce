@@ -8,9 +8,10 @@ async function  list(){
    return result.rows
  }
 
-async function verifyQtd(id){
-   const result = await connection.query(`select qtd_d from products where product_id = $1`,[id])
-   return result.rows[0].qtd_d
+async function verifyQtd(ids){
+   const query = format(`select qtd_d from products where product_id in (%L)`,[...ids])
+   const result = await connection.query(query)
+   return result.rows
 }
 
 async function create(product){
@@ -40,7 +41,7 @@ async function create(product){
 
 async function findById(products){
 
-   const query = format('SELECT * FROM products WHERE product_id = $1;',[products])
+   const query = format('SELECT * FROM products WHERE product_id in (%L);',[...products])
    const result = await connection.query(query)
    return result.rows
 }

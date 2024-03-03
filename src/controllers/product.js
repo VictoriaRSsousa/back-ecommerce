@@ -9,7 +9,6 @@ const {productService,categorieService} = require('../services')
 const list = async (req,res)=>{
    if(req.query.categorie){
       const {value,message,statusCode} = await productService.filterByCategorie(req.query.categorie)
-      console.log(statusCode);
       value? res.status(statusCode).json(value):res.status(statusCode).json(message)
       
    }else{

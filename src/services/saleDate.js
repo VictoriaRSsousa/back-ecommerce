@@ -1,8 +1,7 @@
 const {saleDateModel} = require('../models')
 
 async function list(){
-    console.log("services");
-    const list = saleDateModel.list()
+    const list = await saleDateModel.list()
         return{
             value:list,
             message:false,

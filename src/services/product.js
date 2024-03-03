@@ -59,12 +59,10 @@ async function create(product){
     }
 }
 
-async function findById(id){
+async function findById(ids){
 
-
-    const product = await productModel.findById(id)
-    
-    if(product){
+    const product = await productModel.findById(ids)
+    if(product.length===ids.length){
         return{
             value:product,
             message:false,

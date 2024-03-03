@@ -17,7 +17,11 @@ async function filterByName(name){
     
     //
 }
+async function list(){
+    const categorie = await connection.query(`select * from categories ;`)
+    return categorie.rows
+}
 
 module.exports ={
-    findById,filterByName
+    findById,filterByName,list
 }

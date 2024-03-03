@@ -1,9 +1,10 @@
 const {saleModel, productModel} = require('../models')
 const productService = require('./product')
 const userService = require('./user')
+const validateSale = require('./validateSale')
 async function list(){
     const list = await saleModel.list()
-    console.log(list);
+    //console.log(list);
     return{
         value:list,
         message:false,
@@ -13,50 +14,55 @@ async function list(){
 }
 
 async function create(sale){    
-     const {sale_user_id,products,sale_sale_date} = sale
+     const {sale_user_id,products} = sale
 
-     console.log(products);
+     const valiSale = validateSale(sale)
+     if(valiSale){
+        return{
+            value:false,
+            message:valiSale,
+            statusCode:400
+        }
+     }
+     const ids = products.map((product)=>product.sale_product_id)
+     const qtds = products.map((product)=>product.qtd_sale)
 
- 
 
-     const product = await productService.findById( products.map((product)=>product.id))
-     console.log(product);
-//     const user = await userService.findById(sale_user_id)
-//     const qtd = await productModel.verifyQtd(qtd_sale)
-    
+     const user = await userService.findById(sale_user_id)
+     if(user.message){
+         return user   
+     }
+     const product = await productService.findById( ids)
+     if(product.message){
+         return product 
+        }
 
-//     if(product.message){
-//         return product 
-//     }
-//     if(user.message){
-//         return user
-//     }
-//     //valor negativo no preço de venda
-//     //validar campos
-    
-//     if(qtd<qtd_sale){
-//         return{
-//             value:false,
-//             message:"Produtos Insuficiente!",
-//             statusCode:400
-//         }
-//     }
-//     const create = await saleModel.create(sale)
-//    // console.log(create);
-//     if(!create){
-    
-//         return{
-//             value:false,
-//             message:"Erro ao efetuar a compra",
-//             statusCode:400
-//         }
-//     }else{
+    const qtds_ver = await productModel.verifyQtd(ids)
+   
+    for(let i =0;i<products.length;i++){
+        if(qtds_ver[i].qtd_d<qtds[i]){
+            return{
+                value:false,
+                message:"Produtos Insuficiente!",
+                statusCode:400
+            }
+    }
+}
+
+    const create = await saleModel.create(sale)
+    if(!create){
+        return{
+            value:false,
+            message:"Erro ao efetuar a compra",
+            statusCode:400
+        }
+    }else{
         return{
         value:create,
         message:false ,
         statusCode:200
     }
-// }
+ }
 
 
 

@@ -1,51 +1,67 @@
 const connection = require('../databases/e-commerceConnections')
 const format = require('pg-format')
-//usar 
+ //usar 
 
 async function list(){
-  const result = await connection.query(`select * from sales;`)
+  const result = await connection.query(`SELECT
+  TO_CHAR(d.sale_at, 'YYYY-MM-DD HH24:MI:SS') as data_da_venda,
+  ARRAY_AGG(
+    JSONB_BUILD_OBJECT(
+      'id_sale', s.id_sale,
+      'sale_product_id', s.sale_product_id,
+      'sale_user_id', s.sale_user_id,
+      'qtd_sale', s.qtd_sale,
+      'price', s.price
+    )
+  ) AS sales
+FROM sales as s join sale_dates as d on d.sale_date_id = s.sale_sale_date
+GROUP BY d.sale_at, s.sale_sale_date`)
 
   return result.rows;
 }
 
 async function create(sale){ 
-    const {sale_product_id, sale_user_id,qtd_sale,price,sale_sale_date} = sale
-    
+    const {sale_user_id,products} = sale
  
     const transaction = await connection.connect();
 
     try {
       await transaction.query("begin;");
     
-      const idDateSale = await connection.query(`insert into sale_dates (sale_at) values(CURRENT_TIMESTAMP) returning sale_date_id;`);
+      const queryDate = await connection.query(`insert into sale_dates (sale_at) values(CURRENT_TIMESTAMP) returning sale_date_id;`);
+      const idDateSale = queryDate.rows[0].sale_date_id
+      console.log(idDateSale);
+
+      const insertFormat = products.map(product => {
+        return [ product.sale_product_id,sale_user_id,product.qtd_sale,product.price, idDateSale ]
+    })
+
+    
+
+
     
       const saleQuery = `
         INSERT INTO sales (sale_product_id, sale_user_id, qtd_sale, price, sale_sale_date)
-        VALUES ($1, $2, $3, $4, $5) returning id_sale;`;
+        VALUES %L;`;
     
-      const saleParams = [
-        sale_product_id,
-        sale_user_id,
-        qtd_sale,
-        price,
-        idDateSale.rows[0].sale_date_id 
-      ];
     
-      const saleResult = await transaction.query(saleQuery, saleParams);
+     await transaction.query(format(saleQuery, insertFormat));
 
-    
-      const idNewSale = saleResult.rows[0].id_sale;
-    
-      await transaction.query(
-        `update products set qtd_d = qtd_d - $1 where product_id = $2`,
-        [qtd_sale, sale_product_id]
-      );
-    
+
+     for (const product of products) {
+      const updateProductQuery = `
+        UPDATE products
+        SET qtd_d = qtd_d - $1
+        WHERE product_id = $2;`;
+
+      await transaction.query(updateProductQuery, [product.qtd_sale, product.sale_product_id]);
+    }
+
       await transaction.query("commit;");
       
       return {
-        id: idNewSale,
-        ...sale,  
+        message:"compra efetuada com sucesso!",
+        ...sale 
       };
     } catch (error) {
       await transaction.query("rollback;");
@@ -53,7 +69,8 @@ async function create(sale){
     } finally {
       transaction.release();
     }
-}
+ }
+
 
 
 module.exports = {
