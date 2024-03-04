@@ -55,10 +55,6 @@ async function create(sale){
         return [ product.sale_product_id,sale_user_id,product.qtd_sale,product.price, idDateSale ]
     })
 
-    
-
-
-    
       const saleQuery = `
         INSERT INTO sales (sale_product_id, sale_user_id, qtd_sale, price, sale_sale_date)
         VALUES %L;`;
