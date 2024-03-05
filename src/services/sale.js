@@ -23,6 +23,7 @@ async function listByUser(id){
 
 async function create(sale){    
      const {sale_user_id,products} = sale
+     //console.log(sale);
 
      const valiSale = validateSale(sale)
      if(valiSale){
