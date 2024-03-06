@@ -9,7 +9,8 @@ async function list(req,res){
 }
 
 async function listByUser(req,res){
-    console.log(req.params.id);
+    console.log(req.params.id,"id");
+    console.log(req.user.sub,"token");  
     const {value,message,statusCode} = await saleService.listByUser(req.params.id)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
