@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken')
 
 function verifyToken(req, res, next) {
     const token = req.headers.authorization
-    console.log(token);
-
+   // console.log(token);
+    //botar no login 
     if (!token) {
         return res.status(401).json("Falha na autenticação");
     }

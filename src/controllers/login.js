@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 
 async function login(req,res){
 
+    //botar em uma variavel de ambiente
      
     const secret = 'ecommerce_secret'
     

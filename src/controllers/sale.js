@@ -20,13 +20,7 @@ async function listByUser(req,res){
 
 
 async function create(req,res){
-    //console.log(req.body);
-    
-    //console.log(req.user);
-   // console.log(decode);
-   // console.log(req.headers);
-    //console.log(req.headers.authorization);
-   // console.log(req.body);
+
     const {value,message,statusCode} = await saleService.create(req.body)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
