@@ -4,13 +4,15 @@ const {saleService} = require('../services')
 //AUTORIZAÇÃO
 //LISTAR POR CLIENTE DO CLIENTE 
 async function list(req,res){
-    const {value,message,statusCode} = await saleService.list()
+    const id = req.user.sub
+    const {value,message,statusCode} = await saleService.listByUser(id)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 
 async function listByUser(req,res){
     console.log(req.params.id,"id");
     console.log(req.user.sub,"token");  
+
     const {value,message,statusCode} = await saleService.listByUser(req.params.id)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
@@ -18,13 +20,10 @@ async function listByUser(req,res){
 
 
 async function create(req,res){
-    //console.log(req.body);
-    
-    //console.log(req.user);
-    //console.log(decode);
-    //console.log(req.headers);
-    //console.log(req.headers.authorization);
-    const {value,message,statusCode} = await saleService.create(req.body)
+    const id = req.user.sub
+    const products = req.body
+
+    const {value,message,statusCode} = await saleService.create(req.body,id)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 

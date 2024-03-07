@@ -1,4 +1,5 @@
 function validateSale({sale_user_id,products}){
+    //console.log(products);
 
     if(!products){
         return "Compra Inválida!"
