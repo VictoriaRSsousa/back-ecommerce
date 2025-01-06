@@ -1,5 +1,3 @@
-//ADICIONAR CAMPO IMAGEM EM CATEGORIA
-
 
 const express = require('express')
 

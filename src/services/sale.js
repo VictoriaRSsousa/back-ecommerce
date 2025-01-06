@@ -22,8 +22,6 @@ async function listByUser(id){
 }
 
 async function create(sale,id){   
-    // console.log(sale,id); 
-
      const {sale_user_id,products} = sale
 
      const valiSale = validateSale(sale)
@@ -37,7 +35,6 @@ async function create(sale,id){
      const ids = products.map((product)=>product.sale_product_id)
      const qtds = products.map((product)=>product.qtd_sale)
 
-     //pegar id do token
      const user = await userService.findById(sale_user_id)
      if(user.message){
          return user   
@@ -49,8 +46,6 @@ async function create(sale,id){
 
     const qtds_ver = await productModel.verifyQtd(ids)
 
-    //verificar produtos numa query
-   
     for(let i =0;i<products.length;i++){
         if(qtds_ver[i].qtd_d<qtds[i]){
             return{

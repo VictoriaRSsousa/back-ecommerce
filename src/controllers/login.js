@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken')
 
 async function login(req,res){
 
-    //botar em uma variavel de ambiente
-     
     const secret = 'ecommerce_secret'
     
     
@@ -21,16 +19,12 @@ async function login(req,res){
             }
         const options = {expiresIn:'7 days'}
         const token = jwt.sign(payload, secret,options)    
-        console.log(value); 
         res.status(statusCode).json({value:{nameUser:value[0].name,emailUser:value[0].email,idUser:value[0].user_id},token:token})
     }
-    //message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }
 
 function verifyToken(req, res, next) {
     const token = req.headers.authorization
-   // console.log(token);
-    //botar no login 
     if (!token) {
         return res.status(401).json("Falha na autenticação");
     }
@@ -40,7 +34,7 @@ function verifyToken(req, res, next) {
         if (erro) {
             return res.status(401).json("Falha na autenticação");
         }
-
+  
          req.user = decode;
          
         next();

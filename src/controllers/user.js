@@ -27,17 +27,6 @@ const create = async(req,res) =>{
    }
  }
 
- const findByEmail = async(req,res) =>{
-   // const {value,message,statusCode} = await userService.findByEmail(req.query.email)
-   // // console.log(req.body);
-   // if(message){
-   //    res.status(statusCode).json(message)
-   // }else{
-   //    res.status(statusCode).json(value)
-
-   // }
-
- }
 
  const remove = async(req,res) =>{
    const {value,message,statusCode} = userService.remove(req.params.id)
@@ -57,7 +46,6 @@ const create = async(req,res) =>{
  module.exports={
     list,
     create,
-    findByEmail,
     remove,
     findById
  }

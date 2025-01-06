@@ -1,8 +1,7 @@
 const { decode } = require('jsonwebtoken');
 const {saleService} = require('../services')
 
-//AUTORIZAÇÃO
-//LISTAR POR CLIENTE DO CLIENTE 
+
 async function list(req,res){
     const id = req.user.sub
     const {value,message,statusCode} = await saleService.listByUser(id)
@@ -10,9 +9,6 @@ async function list(req,res){
 }
 
 async function listByUser(req,res){
-    console.log(req.params.id,"id");
-    console.log(req.user.sub,"token");  
-
     const {value,message,statusCode} = await saleService.listByUser(req.params.id)
     message?res.status(statusCode).json(message):res.status(statusCode).json(value)
 }

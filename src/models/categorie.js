@@ -15,7 +15,7 @@ async function filterByName(name){
         }
  
     
-    //
+
 }
 async function list(){
     const categorie = await connection.query(`select * from categories ;`)

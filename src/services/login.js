@@ -23,7 +23,9 @@ async function login(user){
 
     const login = await loginModel.login(email)
     
+;
     if(login.length<=0 ){  
+        
         return{
             value:null,
             message:"Email ou Senha Incorreto!",

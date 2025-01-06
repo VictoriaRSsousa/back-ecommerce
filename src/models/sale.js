@@ -44,7 +44,6 @@ GROUP BY d.sale_at, s.sale_sale_date`,
 
 async function create(sale,id) {
   const { sale_user_id, products } = sale;
-  // console.log(id,"model");
 
   const transaction = await connection.connect();
 
@@ -55,7 +54,6 @@ async function create(sale,id) {
       `insert into sale_dates (sale_at) values(CURRENT_TIMESTAMP) returning sale_date_id;`
     );
     const idDateSale = queryDate.rows[0].sale_date_id;
-    //console.log(idDateSale);
 
     const insertFormat = products.map((product) => {
       return [
